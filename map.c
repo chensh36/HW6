@@ -11,19 +11,34 @@ struct map{
 };
 		
 typedef struct map MapG;
+/*free the memory of all elements in the list*/
+void DeletingList(MapG* head)
+{
+	MapG* current = head;
+	MapG* before = current;
+	while (current->next != NULL)
+	{
+		before = current;
+		current = current->next;
+		free(before);/*free memory at the end*/
+	}
+}
 
 /*create the first element of the list. returns a pointer to the head*/
 MapG* CreateList(char* word)
 {
 	MapG* head = (MapG*)malloc(sizeof(MapG));
-	if (head == NULL) exit(1);
+	if (head == NULL)
+	{
+		exit(1);
+	}
 	head->word = word;
 	head->next = NULL;
 	return head;
 }
 
 /*insert an element to the end of the list*/
-void Push(MapG* head, char* word)
+int Push(MapG* head, char* word)
 {
 	MapG* current = head;
 	while (current->next != NULL)
@@ -33,10 +48,14 @@ void Push(MapG* head, char* word)
 	/*current now points to last node*/
 	/*create new node*/
 	MapG* new_word = (MapG*)malloc(sizeof(MapG));
-	if (new_word == NULL) exit(1);//Fail in case of an error
+	if (new_word == NULL)
+	{
+		return 1;//Fail in case of an error
+	}
 	new_word->word = word;
 	new_word->next = NULL;
 	current->next = new_word;
+	return 0;
 }
 
 /*search the word in the list and then remove it if we found it*/
@@ -55,18 +74,6 @@ int SearchWordAndRemove(MapG* head, char* word)
 	return FALSE;
 }
 
-/*free the memory of all elements in the list*/
-void DeletingList(MapG* head)
-{
-	MapG* current = head;
-	MapG* before = current;
-	while (current->next != NULL)
-	{
-		before = current;
-		current = current->next;
-		free(before);/*free memory at the end*/
-	}
-}
 
 /*check if A is in B*/
 int AcontainedB(MapG* headA, MapG* headB){

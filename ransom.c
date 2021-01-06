@@ -15,15 +15,29 @@ char** split_string(char*);
 /*Complete the checkMagazine function below.*/
 void checkMagazine(int magazine_count, char** magazine, int note_count, char** note)
 {
+	int memCheck=0;
 	MapG* mapM = CreateList(*magazine);
+
 	for (int i = 1; i<magazine_count; i++)
 	{
-		Push(mapM, *(magazine+i));
+		memCheck = Push(mapM, *(magazine+i));
+		if(memCheck==1)
+		{
+			DeletingList(mapM);
+			exit(1);
+		}
 	}
 	MapG* mapN = CreateList(*note);
+
 	for (int i = 1; i<note_count; i++)
 	{
-		Push(mapN, *(note+i));
+		memCheck = Push(mapN, *(note+i));
+		if(memCheck==1)
+		{
+			DeletingList(mapM);
+			DeletingList(mapN);
+			exit(1);
+		}
 	}
 	if (AcontainedB(mapN, mapM)==1)
 	{

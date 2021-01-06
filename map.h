@@ -15,7 +15,7 @@ typedef struct map{
 MapG* CreateList(char* word);
 
 /*insert an element to the end of the list*/
-void Push(MapG* head, char* word);
+int Push(MapG* head, char* word);
 
 /*search the word in the list and then remove it if we found it*/
 int SearchWordAndRemove(MapG* head, char* word);
